@@ -12,7 +12,7 @@ import com.company.inventory.services.ICategoryService;
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryRestController {
-	
+
 	@Autowired
 	private ICategoryService service;
 	
