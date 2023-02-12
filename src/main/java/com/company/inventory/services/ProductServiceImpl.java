@@ -84,8 +84,9 @@ public class ProductServiceImpl implements IProductService {
 			
 			if(product.isPresent()) {
 				// descomprimimos la img y convertimos en base64 para mostrar al usuario
-				byte[] imageDescompressed = Util.decompressZLib(product.get().getPicture());
-				product.get().setPicture(imageDescompressed);
+				/*byte[] imageDescompressed = Util.decompressZLib(product.get().getPicture());
+				product.get().setPicture(imageDescompressed);*/
+				
 				list.add(product.get());
 				response.getProduct().setProducts(list);
 				response.setMetadata("respuesta ok", "00", "Producto encontrado");
@@ -121,8 +122,12 @@ public class ProductServiceImpl implements IProductService {
 				//Recorrer la lista encontrada para descomprimir las imgs
 				listAux.stream().forEach((p) -> {
 					// descomprimimos la img y convertimos en base64 para mostrar al usuario
-					byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
+					/*
+					 * byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
 					p.setPicture(imageDescompressed);
+					*/
+					
+					
 					list.add(p);
 				});
 				
