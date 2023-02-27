@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.company.inventory.dao.ICategoryDao;
 import com.company.inventory.model.Category;
 import com.company.inventory.response.CategoryResponseRest;
+import com.company.inventory.response.ProductResponseRest;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService{
@@ -154,6 +155,35 @@ public class CategoryServiceImpl implements ICategoryService{
 		} catch (Exception e) {
 			response.setMetadata("Respuesta nok", "-1", "Error al eliminar");
 			e.getStackTrace();
+			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<CategoryResponseRest> searchByName(String name) {
+		CategoryResponseRest response = new CategoryResponseRest();
+		List<Category> list = new ArrayList<>();
+		List<Category> listAux = new ArrayList<>();
+		
+		try {
+			// Buscar categoria por nombre
+			listAux = categoryDao.findByNameContainingIgnoreCase(name);
+			
+			if(listAux.size() > 0) {
+				// Recorrer la lista
+				listAux.stream().forEach((c) -> {
+					list.add(c);
+				});
+				
+				response.getCategoryResponse().setCategory(list);
+				response.setMetadata("respuesta ok", "00", "Categorias encontradas");
+			}
+			
+		} catch(Exception e) {
+			e.getStackTrace();
+			response.setMetadata("respuesta nok", "-1", "Error al buscar categoria por nombre");
 			return new ResponseEntity<CategoryResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

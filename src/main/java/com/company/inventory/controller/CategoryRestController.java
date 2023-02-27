@@ -51,6 +51,17 @@ public class CategoryRestController {
 		ResponseEntity<CategoryResponseRest> response = service.searchById(id);
 		return response;
 	}
+	
+	/**
+	 * Obtener categorias por nombre
+	 * @param name
+	 * @return
+	 */
+	@GetMapping("/categories/filter/{name}")
+	public ResponseEntity<CategoryResponseRest> searchByName(@PathVariable String name) {
+		ResponseEntity<CategoryResponseRest> response = service.searchByName(name);
+		return response;
+	}
 
 	/**
 	 * Almacenar categorias
