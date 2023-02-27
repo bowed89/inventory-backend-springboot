@@ -27,7 +27,7 @@ import com.company.inventory.util.Util;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/v1")
 public class ProductRestController {

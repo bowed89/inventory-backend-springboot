@@ -21,7 +21,7 @@ import com.company.inventory.response.CategoryResponseRest;
 import com.company.inventory.services.ICategoryService;
 import com.company.inventory.util.CategoryExcelExporter;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryRestController {
