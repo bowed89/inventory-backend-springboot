@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.company.inventory.model.Product;
-import com.company.inventory.response.CategoryResponseRest;
 import com.company.inventory.response.ProductResponseRest;
 import com.company.inventory.services.IProductService;
-import com.company.inventory.util.CategoryExcelExporter;
 import com.company.inventory.util.ProductExcelExporter;
-import com.company.inventory.util.Util;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
