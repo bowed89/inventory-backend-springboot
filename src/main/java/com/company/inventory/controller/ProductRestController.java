@@ -28,7 +28,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 @RequestMapping("/api/v1")
 public class ProductRestController {
 
-	// Inyeccion de dependencia mediante constructor
+	// Inyeccion de despendencia mediante constructor
 	private IProductService productService;
 
 	public ProductRestController(IProductService productService) {
