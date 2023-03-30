@@ -27,6 +27,7 @@ public class CategoryExcelExporter {
 	}
 	
 	private void writeHeaderLine() {
+		System.out.println("entraaaa category");
 		sheet = workbook.createSheet("Resultado");
 		Row row = sheet.createRow(0);
 		CellStyle style = workbook.createCellStyle();

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.company.inventory.dao.ICategoryDao;
 import com.company.inventory.model.Category;
 import com.company.inventory.response.CategoryResponseRest;
-import com.company.inventory.response.ProductResponseRest;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService{

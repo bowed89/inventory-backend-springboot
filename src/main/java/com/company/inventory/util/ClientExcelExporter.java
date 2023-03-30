@@ -13,16 +13,17 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.company.inventory.model.Client;
 import com.company.inventory.model.Product;
 
-public class ProductExcelExporter {
+public class ClientExcelExporter {
 
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
-	private List<Product> product;
+	private List<Client> client;
 	
-	public ProductExcelExporter (List<Product> products) {
-		this.product = products;
+	public ClientExcelExporter (List<Client> clients) {
+		this.client = clients;
 		workbook = new XSSFWorkbook();
 	}
 	
@@ -37,11 +38,9 @@ public class ProductExcelExporter {
 		style.setFont(font);
 		
 		createCell(row, 0, "Nombre", style);
-		createCell(row, 1, "Descripción", style);
-		createCell(row, 2, "Precio Compra", style);
-		createCell(row, 3, "Precio Venta", style);
-		createCell(row, 5, "Cantidad", style);
-		createCell(row, 4, "Categoría", style);
+		createCell(row, 1, "Apellido", style);
+		createCell(row, 2, "Email", style);
+		createCell(row, 3, "Documento de Identidad", style);
 	}
 	
 	private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -66,15 +65,13 @@ public class ProductExcelExporter {
 		font.setFontHeight(14);
 		style.setFont(font);
 		
-		for(Product result: product) {
+		for(Client result: client) {
 			int columnCount = 0;
 			Row row = sheet.createRow(rowCount++);
 			createCell(row, columnCount++, result.getName(), style);
-			createCell(row, columnCount++, result.getDescription(), style);
-			createCell(row, columnCount++, String.valueOf(result.getPurchase_price()), style);
-			createCell(row, columnCount++, String.valueOf(result.getSale_price()), style);
-			createCell(row, columnCount++, String.valueOf(result.getStock()), style);
-			createCell(row, columnCount++, result.getCategory().getName(), style);
+			createCell(row, columnCount++, result.getLastname(), style);
+			createCell(row, columnCount++, result.getEmail(), style);
+			createCell(row, columnCount++, String.valueOf(result.getCi()), style);
 		}
 	}
 	

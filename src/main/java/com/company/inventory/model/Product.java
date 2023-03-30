@@ -31,8 +31,10 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private int price;
-	private int account;
+	private String description;
+	private int purchase_price;
+	private int sale_price;
+	private int stock;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

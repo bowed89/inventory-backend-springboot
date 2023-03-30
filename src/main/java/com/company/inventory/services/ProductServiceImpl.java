@@ -14,9 +14,7 @@ import com.company.inventory.dao.ICategoryDao;
 import com.company.inventory.dao.IProductDao;
 import com.company.inventory.model.Category;
 import com.company.inventory.model.Product;
-import com.company.inventory.response.CategoryResponseRest;
 import com.company.inventory.response.ProductResponseRest;
-import com.company.inventory.util.Util;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -205,11 +203,13 @@ public class ProductServiceImpl implements IProductService {
 			
 			if(productSearch.isPresent()) {
 				// setear productos
-				productSearch.get().setAccount(product.getAccount());
+				productSearch.get().setStock(product.getStock());
 				productSearch.get().setCategory(product.getCategory());
 				productSearch.get().setName(product.getName());
+				productSearch.get().setDescription(product.getDescription());
 				productSearch.get().setPicture(product.getPicture());
-				productSearch.get().setPrice(product.getPrice());
+				productSearch.get().setSale_price(product.getSale_price());
+				productSearch.get().setPurchase_price(product.getPurchase_price());
 				//guardar producto para actualizat
 				Product productToUpdate = productDao.save(productSearch.get());
 				

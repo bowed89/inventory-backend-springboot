@@ -1,27 +1,24 @@
 package com.company.inventory.model;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 
-import javax.persistence.GenerationType;
-
-@Entity
 @Data
-public class Contact {
+@Entity
+@Table(name = "client")
+public class Client {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idcontact")
-	private Integer id;
-	
+	private Long id;
 	private String name;
-	private LocalDate birthdate;
-	private String phone;
+	private String lastname;
 	private String email;
+	private int ci;
 	
 }

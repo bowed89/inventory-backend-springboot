@@ -23,14 +23,14 @@ import com.company.inventory.util.ProductExcelExporter;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
-
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/v1")
 public class ProductRestController {
-	
+
 	// Inyeccion de dependencia mediante constructor
 	private IProductService productService;
+
 	public ProductRestController(IProductService productService) {
 		super();
 		this.productService = productService;
@@ -38,6 +38,7 @@ public class ProductRestController {
 
 	/**
 	 * Añadir nuevo producto
+	 * 
 	 * @param picture
 	 * @param name
 	 * @param price
@@ -47,32 +48,35 @@ public class ProductRestController {
 	 * @throws IOException
 	 */
 	@PostMapping("/products")
-	public ResponseEntity<ProductResponseRest> save(
-				@RequestParam("picture") MultipartFile picture,
-				@RequestParam("name") String name,
-				@RequestParam("price") int price,
-				@RequestParam("account") int account,
-				@RequestParam("categoryId") Long categoryId) throws IOException
-	{
+	public ResponseEntity<ProductResponseRest> save(@RequestParam("picture") MultipartFile picture,
+			@RequestParam("name") String name, 
+			@RequestParam("description") String description,
+			@RequestParam("sale_price") int sale_price, 
+			@RequestParam("purchase_price") int purchase_price,
+			@RequestParam("stock") int stock,
+			@RequestParam("categoryId") Long categoryId) throws IOException {
+		
 		Product product = new Product();
 		product.setName(name);
-		product.setAccount(account);
-		product.setPrice(price);
-        byte[] image = Base64.encodeBase64(picture.getBytes());
-		//byte[] image = Util.compressZLib(picture.getBytes());
+		product.setDescription(description);
+		product.setSale_price(sale_price);
+		product.setPurchase_price(purchase_price);
+		product.setStock(stock);
+		byte[] image = Base64.encodeBase64(picture.getBytes());
 		String result = new String(image);
 		product.setPicture(result);
-		
+
 		System.out.print(product);
-		
+
 		ResponseEntity<ProductResponseRest> response = productService.save(product, categoryId);
-		
+
 		return response;
-		
+
 	}
 
 	/**
 	 * Buscar por ID
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -81,9 +85,10 @@ public class ProductRestController {
 		ResponseEntity<ProductResponseRest> response = productService.searchbyId(id);
 		return response;
 	}
-	
+
 	/**
 	 * Buscar por nombre
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -95,6 +100,7 @@ public class ProductRestController {
 
 	/**
 	 * Eliminar por ID
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -103,9 +109,10 @@ public class ProductRestController {
 		ResponseEntity<ProductResponseRest> response = productService.deleteById(id);
 		return response;
 	}
-	
+
 	/**
 	 * Obtener todos los productos
+	 * 
 	 * @return
 	 */
 	@GetMapping("/products")
@@ -113,9 +120,10 @@ public class ProductRestController {
 		ResponseEntity<ProductResponseRest> response = productService.search();
 		return response;
 	}
-	
+
 	/**
 	 * Actualizar Producto
+	 * 
 	 * @param picture
 	 * @param name
 	 * @param price
@@ -127,47 +135,52 @@ public class ProductRestController {
 	 */
 	@PutMapping("/products/{id}")
 	public ResponseEntity<ProductResponseRest> update(
-				@RequestParam("picture") MultipartFile picture,
-				@RequestParam("name") String name,
-				@RequestParam("price") int price,
-				@RequestParam("account") int account,
-				@RequestParam("categoryId") Long categoryId,
-				@PathVariable Long id) throws IOException
-	{
+
+			@RequestParam("picture") MultipartFile picture, 
+			@RequestParam("name") String name,
+			@RequestParam("description") String description, 
+			@RequestParam("sale_price") int sale_price,
+			@RequestParam("purchase_price") int purchase_price, 
+			@RequestParam("stock") int stock,
+			@RequestParam("categoryId") Long categoryId,
+			@PathVariable Long id) throws IOException {
+		
 		Product product = new Product();
 		product.setName(name);
-		product.setAccount(account);
-		product.setPrice(price);
-		
+		product.setDescription(description);
+		product.setSale_price(sale_price);
+		product.setPurchase_price(purchase_price);
+		product.setStock(stock);
 		byte[] image = Base64.encodeBase64(picture.getBytes());
 		String result = new String(image);
 		product.setPicture(result);
 		ResponseEntity<ProductResponseRest> response = productService.update(product, categoryId, id);
-		
+
 		return response;
-		
+
 	}
-	
+
 	/**
 	 * Exportar a Archivo EXCEL
+	 * 
 	 * @param response
 	 * @throws IOException
 	 */
 	@GetMapping("/products/export/excel")
-	public void exportToExcel(HttpServletResponse response)throws IOException {
+	public void exportToExcel(HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream"); // representa un archivo Excel
-		
+
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=result_product";
 		response.setHeader(headerKey, headerValue);
-		
+
 		ResponseEntity<ProductResponseRest> productResponse = productService.search();
-		
+
 		ProductExcelExporter excelExporter = new ProductExcelExporter(
 				productResponse.getBody().getProduct().getProducts());
-		
+
 		excelExporter.export(response);
 
 	}
-	
+
 }

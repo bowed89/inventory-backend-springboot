@@ -13,7 +13,7 @@ import com.company.inventory.security.TokenUtils;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserRestController {
 	@GetMapping("/verify/{token}")
 	public boolean verifyToken(@PathVariable String token) {
 		UsernamePasswordAuthenticationToken usernamePAT = TokenUtils.getAuthentication(token);
