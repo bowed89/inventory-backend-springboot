@@ -50,7 +50,8 @@ public class ProductServiceImpl implements IProductService {
 			// Guardar producto
 			Product productSaved = productDao.save(product);
 			
-			System.out.print("product =>" + product);
+			System.out.print("products =>" + product);
+
 			System.out.print("productSaved =>" + productSaved);
 			
 			if(productSaved != null) {
