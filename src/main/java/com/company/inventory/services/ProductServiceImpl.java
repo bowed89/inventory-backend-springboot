@@ -55,7 +55,7 @@ public class ProductServiceImpl implements IProductService {
 			System.out.print("productSaved =>" + productSaved);
 			
 			if(productSaved != null) {
-				a
+				
 				list.add(productSaved);
 				response.getProduct().setProducts(list);
 				response.setMetadata("respuesta ok", "00", "Producto almacenado");
