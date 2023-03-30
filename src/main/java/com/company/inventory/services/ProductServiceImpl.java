@@ -162,16 +162,20 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public ResponseEntity<ProductResponseRest> search() {
+		System.out.println("Entra a get products!");
 		ProductResponseRest response = new ProductResponseRest(); 
 		List<Product> list = new ArrayList<>();
 		
 		try {
+			System.out.println("Entra try!");
+
 			// Obtener todos los productos
 			list = (List<Product>) productDao.findAll();
 			response.getProduct().setProducts(list);
 			response.setMetadata("respuesta ok", "00", "Respuesta exitosa");
 			
 		} catch (Exception e) {
+			System.out.println("Entra a catch get products!");
 			response.setMetadata("Respuesta nok", "-1", "Error al consultar");
 			e.getStackTrace();
 			return new ResponseEntity<ProductResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
