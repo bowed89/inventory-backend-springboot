@@ -50,7 +50,11 @@ public class ProductServiceImpl implements IProductService {
 			// Guardar producto
 			Product productSaved = productDao.save(product);
 			
+			System.out.print("product =>" + product);
+			System.out.print("productSaved =>" + productSaved);
+			
 			if(productSaved != null) {
+				a
 				list.add(productSaved);
 				response.getProduct().setProducts(list);
 				response.setMetadata("respuesta ok", "00", "Producto almacenado");
@@ -168,7 +172,6 @@ public class ProductServiceImpl implements IProductService {
 		
 		try {
 			System.out.println("Entra try!");
-
 			// Obtener todos los productos
 			list = (List<Product>) productDao.findAll();
 			response.getProduct().setProducts(list);
